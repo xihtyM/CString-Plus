@@ -1,14 +1,12 @@
 #include "include/string.h"
 
-#define LONG_TESTS "�	" \
-    "" \
-    " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
-
 int main(void)
 {
-    string i = String.init(LONG_TESTS);
+    string i = String.init("Hello World!");
 
     println(&i);
+
+    String.destroy(&i);
 
     return 0;
 }
