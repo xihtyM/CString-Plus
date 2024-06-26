@@ -1,4 +1,4 @@
-### String Library for C ###
+# String Library for C #
 
 **Warning: Do not use C++ with this library for now - it has limited functionality and the standard library is better.**
 
@@ -16,7 +16,7 @@ Here is a list of some of the features:
 
 ## Installation: ##
 
-# Windows:
+### Windows: ###
 There isn't a way of automatically installing this library right now; however here is a way to install it with a mingw compiler.
 
 > Note: If you are using a 32-bit machine for some reason, change the 64 to 32.
