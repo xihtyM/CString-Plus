@@ -401,7 +401,19 @@ cto_string(
     // guaranteed to be 1 character,
     // no point in using init.
     // - and faster (less function calls).
+#ifndef __cplusplus
     return (string){.capacity=STRING_SHORT_MAX, .length=1, .__short_data_={c}};
+#else
+    
+    // weird ass C++
+    string tmp;
+
+    tmp.length = 1;
+    tmp.capacity=STRING_SHORT_MAX;
+    tmp.__short_data_[0] = c;
+
+    return tmp;
+#endif
 }
 
 
