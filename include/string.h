@@ -200,6 +200,26 @@ typedef void (*string_inserts_fun)(
         _In_    string              __notnullptr(src))
         __notnull(1) __notnull(3);
 
+typedef bool (*string_compare_fun)(
+        _In_    string                  __notnullptr(str1),
+        _In_    const string_value_type __notnullptr(str2))
+        __notnull(1) __notnull(2);
+
+typedef bool (*string_compares_fun)(
+        _In_    string                  __notnullptr(str1),
+        _In_    string                  __notnullptr(str2))
+        __notnull(1) __notnull(2);
+
+typedef string_size_type (*string_find_fun)(
+        _In_    string                  __notnullptr(str),
+        _In_    const string_value_type __notnullptr(s))
+        __notnull(1) __notnull(2);
+
+typedef string_value_type (*string_at_fun)(
+        _In_    string                  __notnullptr(str),
+        _In_    string_size_type        pos)
+        __notnull(1);
+
 //
 // struct storing most functions
 // to manipulate strings.
@@ -269,7 +289,7 @@ typedef struct $String
     string_shrink_to_fit_fun shrink_to_fit;
 
     /// @brief Returns a newly constructed string object with its value initialized to a copy of a substring of this object.
-    /// @param str Pointer to string.
+    /// @param str Pointer to a string object.
     /// @param pos Position of the first character to be copied as a substring.
     /// @param len Length of the substring - the substring will be from string[pos] to string[pos + len].
     /// @note A value of npos for `len` indicates all characters until the end of the string.
@@ -294,7 +314,7 @@ typedef struct $String
     string_push_back_fun push_back;
 
     /// @brief Gets string data.
-    /// @param str Pointer to string.
+    /// @param str Pointer to a string object.
     /// @return A pointer to a null-terminated C-string representing the current value of the string object.
     /// @return - This array includes the same sequence of characters that make up the value of the string
     /// @return   object plus an additional terminating null-character ('\0') at the end.
@@ -303,14 +323,14 @@ typedef struct $String
     string_data_fun data;
 
     /// @brief Gets C-string equivalent.
-    /// @param str Pointer to string.
+    /// @param str Pointer to a string object.
     /// @return A constant pointer to a null-terminated C-string representing the current value of the string object.
     /// @return - The pointer returned points to the internal array currently used by the string object to store the
     /// @return   characters that conform its value.
     string_c_str_fun c_str;
 
     /// @brief Tests if string is empty.
-    /// @param str Pointer to string.
+    /// @param str Pointer to a string object.
     /// @return Returns whether the string is empty (i.e. whether its length is 0).
     /// @note This function does not modify the value of the string in any way.
     /// @note To clear the content of a string, see clear.
@@ -322,25 +342,31 @@ typedef struct $String
     /// @param src Pointer to string object whose data gets inserted as a substring into dest.
     string_inserts_fun inserts;
 
-    bool (*compare)(
-        _In_    string                  __notnullptr(str1),
-        _In_    const string_value_type __notnullptr(str2))
-        __notnull(1) __notnull(2);
+    /// @brief Compares the value of the string object to a null-terminated character array.
+    /// @param str1 Pointer to a string object.
+    /// @param str2 Constant pointer to a null-terminated character array (C-Style string).
+    /// @return Returns true if both strings contain the exact same data, otherwise false.
+    string_compare_fun compare;
 
-    bool (*compares)(
-        _In_    string                  __notnullptr(str1),
-        _In_    string                  __notnullptr(str2))
-        __notnull(1) __notnull(2);
+    /// @brief Compares the value of the string object to the value of another string object.
+    /// @param str1 Pointer to a string object.
+    /// @param str2 Pointer to a string object.
+    /// @return Returns true if both strings contain the exact same data, otherwise false.
+    string_compares_fun compares;
     
-    string_size_type (*find)(
-        _In_    string                  __notnullptr(str),
-        _In_    const string_value_type __notnullptr(s))
-        __notnull(1) __notnull(2);
+    /// @brief Searches the string object for the first occurence of the character sequence.
+    /// @param str Pointer to a string object.
+    /// @param s Constant pointer to a null-terminated character array (C-Style string).
+    /// @return The position of the first character of the first match.
+    /// @return If no matches were found - or either string is empty - returns npos.
+    string_find_fun find;
     
-    string_value_type (*at)(
-        _In_    string                  __notnullptr(str),
-        _In_    string_size_type        pos)
-        __notnull(1);
+    /// @brief Returns the character at position pos in the string.
+    /// @param str Pointer to a string object.
+    /// @param pos Value with the position of a character within the string.
+    /// @return The character at the specified position in the string.
+    /// @note The first character in a string is denoted by a value of 0 (not 1).
+    string_at_fun at;
 } $String;
 
 extern const $String String;

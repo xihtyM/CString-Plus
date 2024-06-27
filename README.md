@@ -34,22 +34,106 @@ There isn't a way of automatically installing this library right now; however he
 ## Using the library: ##
 > Note: I will be using the folder name of `cstringplus` as that is the name of the library.
 
-Starting with simple construction and destruction:
-```c
-#include <cstringplus/string.h>
+### The library tries to bring C++'s string library to C. ###
+
+C++ code:
+```cpp
+#include <iostream>
+#include <string>
 
 int main(void)
 {
-    // Creating a string.
-    string i = String.init("Hello World!");
+    std::string s = "Hello, World!\n";
 
-    // Printing the string.
-    println(&i);
-
-    // Freeing memory.
-    String.destroy(&i);
+    for (std::string::iterator it = s.begin(); it < s.end(); it++)
+    {
+        std::cout << *it;
+    }
 
     return 0;
 }
 ```
 
+Equivalent with cstringplus in C:
+```c
+#include <cstringplus/string.h>
+
+int main(void)
+{
+    string s = String.init("Hello World!\n");
+
+    for (string_iterator it = String.begin(&s); it < String.end(&s); it++)
+    {
+        print(*it);
+    }
+
+    String.destroy(&s);
+
+    return 0;
+}
+```
+
+### Conversions between data types with to_string: ###
+
+`to_string` guarantees an unallocated string, therefore it is possible to use anywhere without fear of having to destroy the object.
+> Note: Obviously, modifying this string removes any guarantee of allocation.
+
+```c
+#include <cstringplus/string.h>
+
+int main(void)
+{
+    // This means it is possible to use to_string like this:
+    string s = to_string(420.69);
+    println(&s);
+
+    // Or like this:
+    println(to_string(555.555));
+
+    // Or like this (faster but more verbose):
+    println(to_ptr(to_string(44.5)));
+
+    return 0;
+}
+```
+
+`to_string` has implementations for every single numerical data type there is (decimals, integers and unsigned integers).
+
+### Handling errors: ###
+This library throws 2 different errors right now, there is no way to "catch" them; however you can change the handler function which gets called for each error.
+
+The 2 errors are `out_of_range` and `bad_alloc`. The default handler function for both of these outputs the error message to the console and then exits the program.
+If the function being used throws an error and returns a string, it should **always return an empty string**.
+
+You can change the handler function with your own implementation with the functions included in `throw.h`. A neat example could be:
+```c
+#include <cstringplus/string.h>
+
+void my_bad_alloc_handler(u64 size)
+{
+    print("You tried to allocate: ");
+    print(size);
+    print(" bytes.\n");
+
+    println("How silly of you.\n");
+}
+
+int main(void)
+{
+    // Change from default bad_alloc handler to this implementation.
+    set_bad_alloc_handler(&my_bad_alloc_handler);
+
+    // This means it is possible to use to_string like this:
+    string s = String.init(null);
+
+    // Raises a bad_alloc.
+    c_throw((exception){.err=bad_alloc, .size=999999});
+
+    // Now the program will continue.
+    println("ahhhh its still running... WHYY!!");
+
+    return 0;
+}
+```
+
+The same is possible for `out_of_range`.

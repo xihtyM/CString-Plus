@@ -103,6 +103,8 @@ static string string_init(
             .err=bad_alloc,
             .size=str.capacity
         });
+
+        return String.init(null);
     }
 #else
     str.__long_data_ = new string_value_type[str.capacity];
@@ -156,6 +158,7 @@ static void string_reserve(
                 .err=bad_alloc,
                 .size=new_capacity
             });
+            return;
         }
 #else
         string_value_type *new_data = new string_value_type[new_capacity];
@@ -183,6 +186,7 @@ static void string_reserve(
             .err=bad_alloc,
             .size=str->capacity
         });
+        return;
     }
 #else
     string_value_type *new_data = new string_value_type[new_capacity];
@@ -294,6 +298,7 @@ string_shrink_to_fit(
             .err=bad_alloc,
             .size=str->capacity
         });
+        return;
     }
 #else
     string_value_type *new_data = new string_value_type[str->capacity];
@@ -323,6 +328,7 @@ string_substr(
                 .size=str->length
             }
         });
+        return String.init(null);
     }
 
     string new_string;
@@ -354,6 +360,7 @@ string_substr(
             .err=bad_alloc,
             .size=new_string.capacity
         });
+        return String.init(null);
     }
 #else
     new_string.__long_data_ = new string_value_type[new_string.capacity];
@@ -399,6 +406,7 @@ string_copy(
             .err=bad_alloc,
             .size=copy.capacity
         });
+        return String.init(null);
     }
 #else
     copy.__long_data_ = new string_value_type[copy.capacity];
@@ -500,6 +508,19 @@ string_compare(
 {
     string_iterator start = string_begin(str);
 
+    //
+    // Note: Cannot compare the start (address) of this string (str)
+    // to the address of the C-style string (s).
+    //
+    // This is because one is null-terminated whereas this implementation
+    // is terminated by length.
+    //
+    // Comparing pointers could lead to weird situations where both strings
+    // contain a null character and are different but start at the same place in memory.
+    // 
+    // - Causing undefined behaivour. Therefore, do not compare addresses.
+    //
+
     for (string_size_type i = 0; start + i < string_end(str); i++)
     {
         if (start[i] != s[i] || !s[i])
@@ -550,6 +571,8 @@ string_value_type string_at(
                 .size=str->length
             }
         });
+
+        return 0;
     }
 
     return string_begin(str)[pos];
