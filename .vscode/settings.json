@@ -135,6 +135,7 @@
     "cinttypes": "cpp",
     "bitset": "c",
     "regex": "c",
-    "scoped_allocator": "cpp"
+    "scoped_allocator": "cpp",
+    "stdlib.h": "c"
   }
 }
