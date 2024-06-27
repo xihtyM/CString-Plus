@@ -35,8 +35,8 @@ void default_out_of_range_handler(out_of_range_t out_of_range_struct);
 
 typedef void (*bad_alloc_handler_t)(u64);
 typedef void (*out_of_range_handler_t)(out_of_range_t);
-static bad_alloc_handler_t __bad_alloc_handler = default_bad_alloc_handler;
-static out_of_range_handler_t __out_of_range_handler = default_out_of_range_handler;
+extern bad_alloc_handler_t __bad_alloc_handler;
+extern out_of_range_handler_t __out_of_range_handler;
 
 
 static inline void
