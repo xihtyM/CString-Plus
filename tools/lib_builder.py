@@ -23,5 +23,6 @@ def clear_object_files_and_create_library():
             os.remove(entry.name)
 
 if __name__ == "__main__":
+    os.chdir(os.path.dirname(__file__))
     clear_and_create_object_files()
     clear_object_files_and_create_library()
