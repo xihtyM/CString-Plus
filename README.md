@@ -99,7 +99,7 @@ int main(void)
 
 `to_string` has implementations for every single numerical data type there is (decimals, integers and unsigned integers).
 
-### Handling errors: ### <a id="errors"></a>
+### Handling errors: <a id="errors"></a>
 This library throws 2 different errors right now, there is no way to "catch" them; however you can change the handler function which gets called for each error.
 
 The 2 errors are `out_of_range` and `bad_alloc`. The default handler function for both of these outputs the error message to the console and then exits the program.
