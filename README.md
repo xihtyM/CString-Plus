@@ -1,7 +1,5 @@
 # String Library for C #
 
-**Warning: Do not use C++ with this library for now - it has limited functionality and the standard library is better.**
-
 ## What this library has: ##
 
 This library is a simple string library for C with similar style functions to that of the C++ standard library.
@@ -11,7 +9,7 @@ Here is a list of some of the features:
 * Memory management (strings will still require destruction due to the limitations of C).
 * Misc functions (such as comparing strings, finding substrings, conversions to and from C-strings etc).
 * Function for printing strings.
-* A C++ wrapper (although I'd recommend just using the standard C++ library for a fully C++ project). **May be updated to work better in the future.**
+* A C++ wrapper (although I'd recommend just using the standard C++ library for a fully C++ project).
 * Exception handling for out of range and bad allocations (further explained [here](#errors))
 
 ## Installation: ##
@@ -33,6 +31,17 @@ There isn't a way of automatically installing this library right now; however he
 
 ## Using the library: ##
 > Note: I will be using the folder name of `cstringplus` as that is the name of the library.
+
+### The string structure: ###
+
+In this library, a `string` is defined as a `struct` containing members: length, capacity and data.
+None of these members should be modified by the user directly, instead use the functions:
+* `String.resize(...)` to modify the length (can also indirectly modify the capacity).
+* `String.reserve(...)` to modify the capacity (not required but is still valid).
+* `String.begin(...)` will give you an iterator that allows the underlying data to be modified.
+* `String.data(...)` may increase capacity in order to null-terminate the string; however can also be used in the same way as `String.begin(...)`
+
+The attributes of a `string` object may be accessed at any time (for example, `s.length` or `s.capacity` is valid to access, just not to modify without using the aforementioned functions).
 
 ### The library tries to bring C++'s string library to C. ###
 
