@@ -12,7 +12,7 @@ Here is a list of some of the features:
 * Misc functions (such as comparing strings, finding substrings, conversions to and from C-strings etc).
 * Function for printing strings.
 * A C++ wrapper (although I'd recommend just using the standard C++ library for a fully C++ project). **May be updated to work better in the future.**
-* Out of range and bad alloc throws.
+* Exception handling for out of range and bad allocations (further explained [here](#errors))
 
 ## Installation: ##
 
@@ -99,7 +99,7 @@ int main(void)
 
 `to_string` has implementations for every single numerical data type there is (decimals, integers and unsigned integers).
 
-### Handling errors: ###
+### Handling errors: ### <a id="errors"></a>
 This library throws 2 different errors right now, there is no way to "catch" them; however you can change the handler function which gets called for each error.
 
 The 2 errors are `out_of_range` and `bad_alloc`. The default handler function for both of these outputs the error message to the console and then exits the program.
