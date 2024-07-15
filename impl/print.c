@@ -5,14 +5,9 @@
 extern "C" {
 #endif
 
-print_type print_x16(FILE *file, u16 n)
+print_type
+print_x16(FILE *file, u16 n)
 {
-    if (!n)
-    {
-        putc('0', file);
-        return;
-    }
-
     // small optimisation for smaller numbers
     if (n < 10)
     {
@@ -39,14 +34,9 @@ print_type print_x16(FILE *file, u16 n)
     }
 }
 
-print_type print_x32(FILE *file, u32 n)
+print_type
+print_x32(FILE *file, u32 n)
 {
-    if (!n)
-    {
-        putc('0', file);
-        return;
-    }
-
     // small optimisation for smaller numbers
     if (n < 10)
     {
@@ -73,14 +63,9 @@ print_type print_x32(FILE *file, u32 n)
     }
 }
 
-print_type print_x64(FILE *file, u64 n)
+print_type
+print_x64(FILE *file, u64 n)
 {
-    if (!n)
-    {
-        putc('0', file);
-        return;
-    }
-
     // small optimisation for smaller numbers
     if (n < 10)
     {
