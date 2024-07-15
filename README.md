@@ -20,7 +20,7 @@ There isn't a way of automatically installing this library right now; however he
 > Note: If you are using a 32-bit machine for some reason, change the 64 to 32.
 
 **Installing the library:**
-1. Download the latest release [here](https://github.com/xihtyM/string/releases/download/v1.1/libcstringplus.lib).
+1. Download the latest release [here](https://github.com/xihtyM/string/releases/download/v1.2/libcstringplus.lib).
 2. Go to (Drive Name):\msys64\mingw64\lib (the installation path may be different on your machine; however this is the most common).
 3. Paste/move the lib file into this folder.
 
