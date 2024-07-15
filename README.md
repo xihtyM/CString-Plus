@@ -37,7 +37,7 @@ There isn't a way of automatically installing this library right now; however he
 In this library, a `string` is defined as a `struct` containing members: length, capacity and data.
 None of these members should be modified by the user directly, instead use the functions:
 * `String.resize(...)` to modify the length (can also indirectly modify the capacity).
-* `String.reserve(...)` to modify the capacity (not required but is still valid).
+* `String.reserve(...)` to modify the capacity (not required for use however could help optimise allocations).
 * `String.begin(...)` will give you an iterator that allows the underlying data to be modified.
 * `String.data(...)` may increase capacity in order to null-terminate the string; however can also be used in the same way as `String.begin(...)`
 
