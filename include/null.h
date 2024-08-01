@@ -1,11 +1,11 @@
 #pragma once
 
-#ifdef __notnull
-#undef __notnull
+#ifdef NON_NULL
+#undef NON_NULL
 #endif
 
-#ifdef __notnullptr
-#undef __notnullptr
+#ifdef NON_NULL_PTR
+#undef NON_NULL_PTR
 #endif
 
 #ifdef null_t
@@ -21,18 +21,18 @@
 #pragma GCC diagnostic error "-Wnonnull"
 
 #ifdef __MINGW_ATTRIB_NONNULL
-#define __notnull(arg) __MINGW_ATTRIB_NONNULL(arg)
+#define NON_NULL(arg) __MINGW_ATTRIB_NONNULL(arg)
 #else
-#define __notnull(arg) __attribute__((__nonnull__(arg)))
+#define NON_NULL(arg) __attribute__((__nonnull__(arg)))
 #endif
 
 #else
-#define __notnull(arg)
+#define NON_NULL(arg)
 #endif
 
 #ifdef __cplusplus
 
-#define __notnullptr(lvalue) *lvalue
+#define NON_NULL_PTR(lvalue) *lvalue
 
 #if __cplusplus >= 201103L
 
@@ -84,7 +84,7 @@ private:
 // #ifndef __cplusplus
 #else
 
-#define __notnullptr(lvalue) lvalue[static 1]
+#define NON_NULL_PTR(lvalue) lvalue[static 1]
 
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202000L
 

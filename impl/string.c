@@ -33,19 +33,19 @@ u8 bit_length(
 
 static __constexpr_function
 string_iterator string_begin(
-    string __notnullptr(str))
+    string NON_NULL_PTR(str))
 { return str->capacity > STRING_SHORT_MAX
     ? str->__long_data_ : str->__short_data_; }
 
 
 static __constexpr_function
 string_iterator string_end(
-    string __notnullptr(str)) { return string_begin(str) + str->length; }
+    string NON_NULL_PTR(str)) { return string_begin(str) + str->length; }
 
 
 //
 // Bugfix note:
-// In some gcc compilers, __notnullptr(s)
+// In some gcc compilers, NON_NULL_PTR(s)
 // generates the following warning:
 //   '__builtin_memcpy' reading 25 or more
 //   bytes from a region of size 1 [-Wstringop-overread]
@@ -121,7 +121,7 @@ static string string_init(
 
 
 static void string_destroy(
-    string __notnullptr(str))
+    string NON_NULL_PTR(str))
 {
     if (str->capacity > STRING_SHORT_MAX
      && str->__long_data_)
@@ -138,7 +138,7 @@ static void string_destroy(
 
 
 static void string_reserve(
-    string __notnullptr(str),
+    string NON_NULL_PTR(str),
     string_size_type size)
 {
     if (size <= str->capacity)
@@ -205,8 +205,8 @@ static void string_reserve(
 
 static void
 string_append(
-    string __notnullptr(str),
-    const string_value_type __notnullptr(s))
+    string NON_NULL_PTR(str),
+    const string_value_type NON_NULL_PTR(s))
 {
     // get the length of s
     const string_value_type *save = s;
@@ -233,12 +233,12 @@ string_append(
 
 static inline void
 string_clear(
-    string __notnullptr(str)) { str->length = 0; }
+    string NON_NULL_PTR(str)) { str->length = 0; }
 
 
 static void
 string_resize(
-    string __notnullptr(str),
+    string NON_NULL_PTR(str),
     string_size_type len)
 {
     if (len > str->capacity)
@@ -261,7 +261,7 @@ string_resize(
 
 static void
 string_shrink_to_fit(
-    string __notnullptr(str))
+    string NON_NULL_PTR(str))
 {
     if (str->capacity <= STRING_SHORT_MAX)
     {
@@ -315,7 +315,7 @@ string_shrink_to_fit(
 
 static string
 string_substr(
-    string __notnullptr(str),
+    string NON_NULL_PTR(str),
     string_size_type pos,
     string_size_type len)
 {
@@ -378,7 +378,7 @@ string_substr(
 
 static string
 string_copy(
-    string __notnullptr(str))
+    string NON_NULL_PTR(str))
 {
     string copy;
     copy.length = str->length;
@@ -425,7 +425,7 @@ string_copy(
 static inline
 string_value_type *
 string_data(
-    string __notnullptr(str))
+    string NON_NULL_PTR(str))
 {
     if (str->capacity <= str->length)
         string_reserve(str, str->length + 1);
@@ -440,14 +440,14 @@ string_data(
 static inline const
 string_value_type *
 string_c_str(
-    string __notnullptr(str)) { return (const string_value_type *)string_data(str); }
+    string NON_NULL_PTR(str)) { return (const string_value_type *)string_data(str); }
 
 
 static void
 string_insert(
-    string __notnullptr(str),
+    string NON_NULL_PTR(str),
     string_size_type pos,
-    const string_value_type __notnullptr(s))
+    const string_value_type NON_NULL_PTR(s))
 {
     const string_value_type *save = s;
     for (; *save; save++) {}
@@ -475,9 +475,9 @@ string_insert(
 
 static inline void
 string_inserts(
-    string __notnullptr(dest),
+    string NON_NULL_PTR(dest),
     string_size_type pos,
-    string __notnullptr(src))
+    string NON_NULL_PTR(src))
 {
     string_insert(dest, pos, string_c_str(src));
 }
@@ -485,7 +485,7 @@ string_inserts(
 
 static void
 string_push_back(
-    string __notnullptr(str),
+    string NON_NULL_PTR(str),
     string_value_type c)
 {
     if (str->length >= str->capacity)
@@ -498,13 +498,13 @@ string_push_back(
 
 static __constexpr_function bool
 string_empty(
-    string __notnullptr(str)) { return str->length == 0; }
+    string NON_NULL_PTR(str)) { return str->length == 0; }
 
 
 static inline bool
 string_compare(
-    string __notnullptr(str),
-    const string_value_type __notnullptr(s))
+    string NON_NULL_PTR(str),
+    const string_value_type NON_NULL_PTR(s))
 {
     string_iterator start = string_begin(str);
 
@@ -533,8 +533,8 @@ string_compare(
 
 static inline bool
 string_compares(
-    string __notnullptr(str1),
-    string __notnullptr(str2))
+    string NON_NULL_PTR(str1),
+    string NON_NULL_PTR(str2))
 {
     // If lengths are not equal
     // they cannot be the same.
@@ -559,7 +559,7 @@ string_compares(
 
 static inline
 string_value_type string_at(
-    string __notnullptr(str),
+    string NON_NULL_PTR(str),
     string_size_type pos)
 {
     if (pos > str->length)
@@ -581,8 +581,8 @@ string_value_type string_at(
 
 static string_size_type
 __string_knuth_morris_pratt_search(
-    string __notnullptr(str),
-    const string_value_type __notnullptr(pattern),
+    string NON_NULL_PTR(str),
+    const string_value_type NON_NULL_PTR(pattern),
     const string_size_type pattern_len)
 {
     //
@@ -650,8 +650,8 @@ __string_knuth_morris_pratt_search(
 static inline
 string_size_type
 string_find(
-    string __notnullptr(str),
-    const string_value_type __notnullptr(s))
+    string NON_NULL_PTR(str),
+    const string_value_type NON_NULL_PTR(s))
 {
     // 
     // return npos if the string doesn't contain anything

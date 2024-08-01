@@ -123,102 +123,102 @@ typedef struct string
 //
 
 typedef string_iterator (*string_begin_fun)(
-        _In_    string  __notnullptr(str))
-        __notnull(1);
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef string_iterator (*string_end_fun)(
-        _In_    string  __notnullptr(str))
-        __notnull(1);
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef string (*string_init_fun)(
         _In_opt_ const string_value_type *s);
 
 typedef void (*string_destroy_fun)(
-        _Inout_ string  __notnullptr(str))
-        __notnull(1);
+        _Inout_ string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef void (*string_reserve_fun)(
-        _Inout_ string              __notnullptr(str),
+        _Inout_ string              NON_NULL_PTR(str),
                 string_size_type    n)
-        __notnull(1);
+        NON_NULL(1);
 
 typedef void (*string_append_fun)(
-        _Inout_ string                  __notnullptr(str),
-        _In_    const string_value_type __notnullptr(s))
-        __notnull(1) __notnull(2);
+        _Inout_ string                  NON_NULL_PTR(str),
+        _In_    const string_value_type NON_NULL_PTR(s))
+        NON_NULL(1) NON_NULL(2);
 
 typedef void (*string_clear_fun)(
-        _Inout_ string  __notnullptr(str))
-        __notnull(1);
+        _Inout_ string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef void (*string_resize_fun)(
-        _Inout_ string              __notnullptr(str),
+        _Inout_ string              NON_NULL_PTR(str),
                 string_size_type    size)
-        __notnull(1);
+        NON_NULL(1);
 
 // lol the name is so long
 typedef void (*string_shrink_to_fit_fun)(
-        _Inout_ string  __notnullptr(str))
-        __notnull(1);
+        _Inout_ string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef string (*string_substr_fun)(
-        _In_    string              __notnullptr(str),
+        _In_    string              NON_NULL_PTR(str),
                 string_size_type    pos,
                 string_size_type    len)
-        __notnull(1);
+        NON_NULL(1);
 
 typedef string (*string_copy_fun)(
-        _In_    string  __notnullptr(str))
-        __notnull(1);
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef void (*string_insert_fun)(
-        _Inout_ string                  __notnullptr(str),
+        _Inout_ string                  NON_NULL_PTR(str),
                 string_size_type        pos,
-        _In_    const string_value_type __notnullptr(s))
-        __notnull(1) __notnull(3);
+        _In_    const string_value_type NON_NULL_PTR(s))
+        NON_NULL(1) NON_NULL(3);
 
 typedef void (*string_push_back_fun)(
-        _Inout_ string              __notnullptr(str),
+        _Inout_ string              NON_NULL_PTR(str),
                 string_value_type   c)
-        __notnull(1);
+        NON_NULL(1);
 
 typedef string_value_type *(*string_data_fun)(
-        _In_    string  __notnullptr(str))
-        __notnull(1);
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef const string_value_type *(*string_c_str_fun)(
-        _In_    string  __notnullptr(str))
-        __notnull(1);
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef bool (*string_empty_fun)(
-        _In_    string  __notnullptr(str))
-        __notnull(1);
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
 
 typedef void (*string_inserts_fun)(
-        _Inout_ string              __notnullptr(dest),
+        _Inout_ string              NON_NULL_PTR(dest),
                 string_size_type    pos,
-        _In_    string              __notnullptr(src))
-        __notnull(1) __notnull(3);
+        _In_    string              NON_NULL_PTR(src))
+        NON_NULL(1) NON_NULL(3);
 
 typedef bool (*string_compare_fun)(
-        _In_    string                  __notnullptr(str1),
-        _In_    const string_value_type __notnullptr(str2))
-        __notnull(1) __notnull(2);
+        _In_    string                  NON_NULL_PTR(str1),
+        _In_    const string_value_type NON_NULL_PTR(str2))
+        NON_NULL(1) NON_NULL(2);
 
 typedef bool (*string_compares_fun)(
-        _In_    string                  __notnullptr(str1),
-        _In_    string                  __notnullptr(str2))
-        __notnull(1) __notnull(2);
+        _In_    string                  NON_NULL_PTR(str1),
+        _In_    string                  NON_NULL_PTR(str2))
+        NON_NULL(1) NON_NULL(2);
 
 typedef string_size_type (*string_find_fun)(
-        _In_    string                  __notnullptr(str),
-        _In_    const string_value_type __notnullptr(s))
-        __notnull(1) __notnull(2);
+        _In_    string                  NON_NULL_PTR(str),
+        _In_    const string_value_type NON_NULL_PTR(s))
+        NON_NULL(1) NON_NULL(2);
 
 typedef string_value_type (*string_at_fun)(
-        _In_    string                  __notnullptr(str),
+        _In_    string                  NON_NULL_PTR(str),
         _In_    string_size_type        pos)
-        __notnull(1);
+        NON_NULL(1);
 
 //
 // struct storing most functions
@@ -376,14 +376,14 @@ extern const $String String;
 //
 
 print_htype
-__notnull(1) __notnull(2)
+NON_NULL(1) NON_NULL(2)
 #ifndef __cplusplus
 print_pstring(
 #else
 fprint(
 #endif
     FILE *file,
-    string __notnullptr(str))
+    string NON_NULL_PTR(str))
 {
     for (
         string_iterator
@@ -398,7 +398,7 @@ fprint(
 #ifndef __cplusplus
 
 print_htype
-__notnull(1)
+NON_NULL(1)
 print_string(
     FILE *file,
     string str)
