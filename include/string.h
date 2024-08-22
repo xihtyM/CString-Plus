@@ -435,7 +435,7 @@ cto_string(
     string tmp;
 
     tmp.length = 1;
-    tmp.capacity=STRING_SHORT_MAX;
+    tmp.capacity = STRING_SHORT_MAX;
     tmp.__short_data_[0] = c;
 
     return tmp;
