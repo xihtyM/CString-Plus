@@ -5,8 +5,8 @@ def clear_and_create_object_files():
         if entry.name.endswith((".lib", ".o")):
             os.remove(entry.name)
     
-    for entry in os.scandir("../impl"):
-        os.system("gcc ../impl/" + entry.name + " -c")
+    for entry in os.scandir("../src"):
+        os.system("gcc ../src/" + entry.name + " -c")
     
 
 def clear_object_files_and_create_library():
