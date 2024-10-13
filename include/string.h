@@ -6,6 +6,7 @@
 #include "null.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>  // For tolower() and toupper()
 
 #ifdef __cplusplus
 extern "C" {
@@ -130,6 +131,27 @@ typedef string_iterator (*string_end_fun)(
         _In_    string  NON_NULL_PTR(str))
         NON_NULL(1);
 
+//
+// New functions added 13/10/2024, works the same as str.upper, str.lower and str.title in python.
+// - note these functions modify the string and don't return a seperate string.
+//
+
+typedef void (*string_upper_fun)(
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
+
+typedef void (*string_lower_fun)(
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
+
+typedef void (*string_title_fun)(
+        _In_    string  NON_NULL_PTR(str))
+        NON_NULL(1);
+
+//
+// Back to old functions:
+//
+
 typedef string (*string_init_fun)(
         _In_opt_ const string_value_type *s);
 
@@ -245,6 +267,21 @@ typedef struct $String
     /// @note   shall not be dereferenced.
     /// @note - If the object is an empty string, this function returns the same as string::begin.
     string_end_fun end;
+
+    /// @brief Converts the string into uppercase letters.
+    /// @param str Pointer to string object.
+    /// @note - This modifies the string object itself, instead of returning a new string object.
+    string_upper_fun upper;
+
+    /// @brief Converts the string into lowercase letters.
+    /// @param str Pointer to string object.
+    /// @note - This modifies the string object itself, instead of returning a new string object.
+    string_lower_fun lower;
+
+    /// @brief Capitalises the first character of the string - with the rest being turned into lowercase.
+    /// @param str Pointer to string object.
+    /// @note - This modifies the string object itself, instead of returning a new string object.
+    string_title_fun title;
 
 
     /// @brief Initialises a string object.

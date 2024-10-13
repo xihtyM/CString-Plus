@@ -44,6 +44,52 @@ string_iterator string_end(
 
 
 //
+// Added new functions: string_upper, string_lower, and string_title (13/10/2024).
+//
+
+void string_upper(
+    string NON_NULL_PTR(str))
+{
+    string_iterator end = string_end(str);
+    for (string_iterator it = string_begin(str); it < end; it++)
+        *it = toupper(*it);
+}
+
+void string_lower(
+    string NON_NULL_PTR(str))
+{
+    string_iterator end = string_end(str);
+    for (string_iterator it = string_begin(str); it < end; it++)
+        *it = tolower(*it);
+}
+
+void string_title(
+    string NON_NULL_PTR(str))
+{
+    string_iterator end = string_end(str);
+    bool start = true;
+
+    for (string_iterator it = string_begin(str); it < end; it++)
+    {
+        if (iswspace(*it))
+        {
+            start = true;
+            continue;
+        }
+        
+        if (start)
+        {
+            *it = toupper(*it);
+            start = false;
+        }
+        else
+        {
+            *it = tolower(*it);
+        }
+    }
+}
+
+//
 // Bugfix note:
 // In some gcc compilers, NON_NULL_PTR(s)
 // generates the following warning:
@@ -678,6 +724,9 @@ struct $String
 String = {
     string_begin,
     string_end,
+    string_upper,
+    string_lower,
+    string_title,
     string_init,
     string_destroy,
     string_reserve,
