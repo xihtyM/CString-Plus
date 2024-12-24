@@ -1,4 +1,4 @@
-# String Library for C #
+# CString+ #
 
 ## Contents: ##
 
