@@ -1,6 +1,6 @@
 # String Library for C #
 
-## What this library has: ##
+## Contents: ##
 
 This library is a simple string library for C with similar style functions to that of the C++ standard library.
 Here is a list of some of the features:
